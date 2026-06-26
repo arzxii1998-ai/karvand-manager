@@ -1,0 +1,28 @@
+{
+    "bootcamp": {
+        "title": "AI Karvands",
+        "year": "2026"
+    },
+    "karvands": [
+        {
+            "id": 1,
+            "full name": "ali",
+            "city": "teh",
+            "education": {
+                "fieldd": "arshad",
+                "degree": "arshad"
+            },
+            "skills": "poshtak"
+        },
+        {
+            "id": 2,
+            "full name": "sara",
+            "city": "qazvin",
+            "education": {
+                "fieldd": "mechanik",
+                "degree": "Dr."
+            },
+            "skills": "soot bolboli"
+        }
+    ]
+}
