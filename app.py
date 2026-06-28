@@ -16,10 +16,18 @@ else:
     new_id = 1
 
 
-print("==" * 10 + "Karvand Manager" + "==" * 10)
+print(
+    "*" * 57
+    + "\n"
+    + "==" * 10
+    + " Karvand Manager "
+    + "==" * 10
+    + "\n"
+    + "*" * 57
+    + "\n"
+)
 
 continuity = True
-id = 0
 
 while continuity:
     command = int(
@@ -29,33 +37,57 @@ while continuity:
     # 1. Add section
 
     if command == 1:
-        name = input("Esm Bede: ")
-        mail = input("E-mail esh: ")
-        city = input("Shahr: ")
-        fieldd = input("tahsilat: ")
-        degree = input("Sath: ")
-        skills = input("Shirin Kari: ")
+        nafar_badi_hast = str()
+        avvalin = True
+        while True:
+            if avvalin:
+                name = input("\nEsm Bede: ")
+            else:
+                name = nafar_badi_hast
+            mail = input("E-mail esh: ")
+            city = input("Shahr: ")
+            fieldd = input("tahsilat: ")
+            degree = input("maghta: ")
 
-        # making Dictionary
-        id += 1
-        new_karvand = {
-            "id": id,
-            "full name": name,
-            "city": city,
-            "education": {
-                "fieldd": fieldd,
-                "degree": degree,
-            },
-            "skills": skills,
-        }
+            # Skills input
+            skills = {}
+            print("Mahaarat (harvaght tamoom shod ye adad bezan):")
+            while True:
+                skill_name = input("  - Mahaarat: ")
+                if not skill_name.isdigit():
+                    skill_score = input("  - Mizane Maharat: ")
+                    skills[skill_name] = int(skill_score)
+                    print("  +++++++++")
+                else:
+                    break
 
-        # Saving
-        data["karvands"].append(new_karvand)
+            # making Dictionary
+            new_karvand = {
+                "id": new_id,
+                "full name": name,
+                "mail": mail,
+                "city": city,
+                "education": {
+                    "field": fieldd,
+                    "degree": degree,
+                },
+                "skills": skills,
+            }
 
-        with open(file_path, "w") as file:
-            json.dump(data, file, ensure_ascii=False, indent=4)
+            # Saving
+            data["karvands"].append(new_karvand)
 
-        print(f"{name} Zakhire Shod.\n")
+            with open(file_path, "w") as file:
+                json.dump(data, file, ensure_ascii=False, indent=4)
+
+            print(f"\n:::::::::::::: {name} Zakhire Shod. ::::::::::::::\n")
+
+            new_id = +1
+            avvalin = False
+            nafar_badi_hast = input("Bazam Hast? (adad bezan agar nist): ")
+            if nafar_badi_hast.isdigit():
+                print("\n")
+                break
 
     # Show Section
     elif command == 2:
@@ -71,16 +103,60 @@ while continuity:
                 print("List Karvand haa:\n")
                 print("\n" + "=" * 50)
                 for k in karvands:
-                    print(f"\n ID: {k['id']}")
+                    print(f"\nID: {k['id']}")
                     print(f"name: {k['full name']}")
+                    print(f"Email: {k['mail']}")
                     print(f"City: {k['city']}")
                     print(
-                        f"education: {k['education']['fieldd']} dar sathe {k['education']['degree']}"
+                        f"education: {k['education']['field']}\nmaghta: {k['education']['degree']}"
                     )
-                    print(f"skills: {k['skills']}")
+                    print("skills:")
+                    for skills, score in k["skills"].items():
+                        print(f"   - {skills}: {score}")
                     print("\n" + "=" * 50 + "\n")
         else:
-            print("file json karvand ha gom shode!")
+            print("file json karvand-haa sakhte nashode!\n")
+
+    # Edit Section
+    elif command == 3:
+        if os.path.exists(file_path):
+            with open(file_path, "r") as file:
+                data = json.load(file)
+            karvands = data["karvands"]
+            print("Kio mikhay edit koni (ID-ish ro vared kon):\n")
+            for k in karvands:
+                print(f"  {k['id']}- {k['full name']}")
+            to_edit = int(input("\n----> "))
+
+            for k in karvands:
+                if k["id"] == to_edit:
+                    print("\n- Edit kon...: ")
+                    k["full name"] = input("New name: ")
+                    k["mail"] = input("New email: ")
+                    k["city"] = input("New city: ")
+                    k["education"]["field"] = input("New field: ")
+                    k["education"]["degree"] = input("New degree: ")
+
+                    skills = {}
+                    print("New Mahaarat (harvaght tamoom shod ye adad bezan):")
+                    while True:
+                        skill_name = input("  - Mahaarat: ")
+                        if not skill_name.isdigit():
+                            skill_score = input("  - Mizane Maharat: ")
+                            skills[skill_name] = int(skill_score)
+                            print("  +++++++++")
+                        else:
+                            break
+
+                    k["skills"] = skills
+
+            with open(file_path, "w") as file:
+                json.dump(data, file, ensure_ascii=False, indent=4)
+
+            print("\n:::::::::::::: Zakhire Shod. ::::::::::::::\n")
+
+        else:
+            print("file json karvand-haa sakhte nashode!")
 
     # Exit Section
     else:

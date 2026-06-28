@@ -6,23 +6,43 @@
     "karvands": [
         {
             "id": 1,
-            "full name": "ali",
-            "city": "teh",
+            "full name": "Christiano",
+            "mail": "cristiano.ir",
+            "city": "madrid",
             "education": {
-                "fieldd": "arshad",
-                "degree": "arshad"
+                "field": "soccer",
+                "degree": "master"
             },
-            "skills": "poshtak"
+            "skills": {
+                "goals": 100
+            }
         },
         {
             "id": 2,
-            "full name": "sara",
-            "city": "qazvin",
+            "full name": "Messi",
+            "mail": "Messi.net",
+            "city": "Barcelona",
             "education": {
-                "fieldd": "mechanik",
-                "degree": "Dr."
+                "field": "Football",
+                "degree": "dr"
             },
-            "skills": "soot bolboli"
+            "skills": {
+                "head": 30,
+                "shoot": 100
+            }
+        },
+        {
+            "id": 3,
+            "full name": "ali joon",
+            "mail": "ali.com",
+            "city": "aliababd",
+            "education": {
+                "field": "ali shenasi",
+                "degree": "dr"
+            },
+            "skills": {
+                "abbazi": 32
+            }
         }
     ]
 }
